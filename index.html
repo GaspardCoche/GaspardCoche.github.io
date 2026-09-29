@@ -1795,8 +1795,8 @@ section.dark .rings circle.core{fill:url(#rgCore)}
   #stack .sgrid{order:1}
   .slist details[open] summary{background:var(--tint)}
 }
-.hero3d{height:220vh}
-.hero3d.fixedmode{height:220vh}
+.hero3d{height:480vh}
+.hero3d.fixedmode{height:480vh}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -3049,10 +3049,10 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   let rot=0,ringRot=0,ringTarget=0,drag=false,lx=0,vel=0,mx=0,my=0,hovI=-1,cur=-1,flying=null,last=performance.now(),t0=last,vis=true,auto=!mob()&&!rm,autoP=0,done=false,explore=false,frames=0,prevY=scrollY,capStable=-1,capSince=0;
   try{new IntersectionObserver(es=>es.forEach(e=>vis=e.isIntersecting),{threshold:0}).observe(stick);}catch(_){}
   const stopAuto=()=>{if(auto){auto=false;$("#hhint").textContent="défiler pour avancer · cliquer pour entrer";}};
-  const setExplore=v=>{if(explore===v)return;explore=v;$("#hnav").classList.toggle("explore",v);if(v){$("#hhint").textContent="glisser pour tourner · cliquer pour entrer";}};
+  const setExplore=v=>{if(explore===v)return;explore=v;$("#hnav").classList.toggle("explore",v);if(v){$("#hhint").textContent="glisser pour tourner · cliquer pour entrer · tout en haut pour rejouer";}};
   $("#hprev").addEventListener("click",()=>{ringTarget+=Math.PI/4;});$("#hnext").addEventListener("click",()=>{ringTarget-=Math.PI/4;});
-  $("#hreplay").addEventListener("click",()=>{setExplore(false);done=false;typed.clear();capI=-1;glide(0,700);auto=false;});
-  addEventListener("scroll",()=>{const y=scrollY,up=y<prevY-1;prevY=y;if(mob()||rm)return;const hp=heroP();if(done&&up&&hp<0.98&&hp>0.01)setExplore(true);if(hp<=0.005)setExplore(false);},{passive:true});
+  $("#hreplay").addEventListener("click",()=>{setExplore(false);done=false;typed.clear();capI=-1;glide(0,900);auto=false;});
+  addEventListener("scroll",()=>{const y=scrollY,up=y<prevY-1;prevY=y;if(mob()||rm)return;const hp=heroP();if(done&&up&&hp<0.98&&hp>0.02)setExplore(true);if(hp<=0.01){setExplore(false);if(done){done=false;typed.clear();capI=-1;}}},{passive:true});
   ["wheel","touchstart","keydown"].forEach(ev=>addEventListener(ev,stopAuto,{passive:true}));
   $("#hskip").addEventListener("click",()=>{stopAuto();glide(scrollY+(heroEnd()-sy()),1200);});
   cv.addEventListener("pointerdown",e=>{stopAuto();drag=true;lx=e.clientX;cv.classList.add("drag");cv.setPointerCapture(e.pointerId);});
@@ -3068,7 +3068,7 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   const sy=()=>{const r=hero.getBoundingClientRect();return -r.top;};
   function progress(el,dt){if(typeof window.__p==="number")return window.__p;if(rm||mob())return 0.62;
     if(auto){if(el>3){autoP=Math.min(0.999,autoP+dt/24);const y=autoP*heroEnd();if(Math.abs(sy()-y)>2)scrollBy(0,y-sy());if(autoP>=0.999){auto=false;done=true;}}return autoP;}
-    const p=heroP();if(p>=0.98)done=true;return p;}
+    const p=heroP();if(p>=0.98)done=true;if(explore)return 0.999;return p;}
   let pS=(typeof window.__p==="number")?window.__p:0,camYaw=0;
   function frame(t){requestAnimationFrame(frame);if(!vis)return;if(mob()&&!drag&&frames>240)return;frames++;const dt=Math.min(0.05,(t-last)/1000);last=t;const el=mob()?12:(t-t0)/1000;const pRaw=progress(el,dt);pS+=(pRaw-pS)*Math.min(1,dt*(explore?2.2:3));const p=pS;
     /* étoile filante */
