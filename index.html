@@ -2879,7 +2879,7 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
     world.updateMatrixWorld();
     let best=-1,bd=0.07;sats.forEach((s,i)=>{tmp.copy(s.g.position).applyMatrix4(ring.matrixWorld);const wz=tmp.z;tmp.project(cam);const x=(tmp.x+1)/2*W+cv.offsetLeft,y=(1-tmp.y)/2*H+cv.offsetTop;s.lb.style.left=x+"px";s.lb.style.top=(y+34)+"px";const overText=!mob()&&tmp.x<0.0;s.userData=s.userData||{};s.userData.dim=overText;const back=wz<-0.6||s.g.scale.x<0.5||overText;s.lb.classList.toggle("back",back);const d=Math.hypot(tmp.x-mx,tmp.y-my);if(!back&&d<bd){bd=d;best=i;}});
     hovI=best;const hi=best>=0?best:(k1>=1&&!(sats[front].userData&&sats[front].userData.dim)?front:-1);
-    sats.forEach((s,i)=>{const on=i===hi||flying===i;s.lb.classList.toggle("on",on);const dim=s.userData&&s.userData.dim;const target=s.g.scale.x>0.3?(dim?0.42:(on?1.22:1)):s.g.scale.x;s.g.scale.setScalar(s.g.scale.x+(target-s.g.scale.x)*0.12);});
+    sats.forEach((s,i)=>{const on=i===hi||flying===i;s.lb.classList.toggle("on",on);const dim=s.userData&&s.userData.dim;const target=s.g.scale.x>0.3?(dim?0.42:(on?1.22:1)):s.g.scale.x;s.g.scale.setScalar(s.g.scale.x+(target-s.g.scale.x)*(dim?0.3:0.12));});
     cv.style.cursor=best>=0?"pointer":(drag?"grabbing":"grab");
     if(hi!==cur){cur=hi;const c=$("#hcur");if(hi>=0){c.innerHTML=`<b>0${hi+1}</b>${ST[hi][1]}`;$("#hhint").textContent=ST[hi][2];}else{c.innerHTML=`<b>00</b>Faites défiler`;$("#hhint").textContent="glisser pour tourner · cliquer pour entrer";}document.querySelectorAll("#hticks li").forEach((li,i)=>li.setAttribute("aria-current",i===hi));}
     if(effect)effect.render(scene,cam);else renderer.render(scene,cam);}
