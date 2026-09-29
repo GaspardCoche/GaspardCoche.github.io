@@ -1448,9 +1448,7 @@ nav.top .menu svg{width:20px;height:20px}
   #mosaic .grid6{grid-template-columns:1fr;gap:10px}
   .human{padding:18px 16px}
   .radar{max-width:280px}
-  .chart{overflow-x:auto;padding:14px 12px}
-  .chart svg{min-width:680px}
-  .ms{display:none}
+  .chart{padding:14px 12px}
   .path{grid-template-columns:1fr}
   .main-xp .top{padding:18px 18px 10px}
   .stage-l{padding:12px 18px}
@@ -1798,6 +1796,7 @@ section.dark .rings circle.core{fill:url(#rgCore)}
 }
 .hero3d{height:480vh}
 .hero3d.fixedmode{height:480vh}
+@media (max-width:860px){.hero3d,.hero3d.fixedmode{height:auto!important}}
 
 /* v45 : finitions */
 .panel3d.s2.fin .t2 .sub{display:none}
@@ -1810,6 +1809,114 @@ section.dark .rings circle.core{fill:url(#rgCore)}
 .hscroll{cursor:pointer}
 .hscroll:hover i{width:48px}
 .hscroll i{transition:width .3s}
+
+/* v48 : mobile fluide */
+@media (max-width:860px){
+  .hstick canvas{touch-action:pan-y!important;height:52vh;cursor:default}
+  .hstick{background:linear-gradient(160deg,#071C2E 0%,#0B2740 50%,#174657 100%)}
+  .hcopy > .in > *{max-width:none}
+  .hcopy h1{font-size:28px;line-height:1.08}
+  .hcopy .sub{font-size:15px}
+  .hcopy .cta{gap:8px}
+  .hcopy .btn{padding:11px 14px;font-size:11.5px}
+  .hcopy .btn.main{width:100%;justify-content:center}
+  .hmed{margin-bottom:14px}
+  .mlist{padding:12px 16px 24px}
+  .mlist a{padding:12px 12px;font-size:13.5px}
+  .strip{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;margin:22px 0 30px}
+  nav.top{transform:none!important;position:sticky;top:0}
+  html{scroll-padding-top:70px}
+  section.s{padding-block:40px}
+  .sh2{margin-bottom:18px}
+  .sh2 h2{font-size:26px;line-height:1.12}
+  .sh2 h2::after{width:44px;height:4px;margin-top:10px}
+  .sh2 p{font-size:15px}
+  #expertises > .wrap{gap:12px}
+  #mosaic .tile{padding:16px}
+  #mosaic .tile.axis,#mosaic .tile.axis:hover{padding:18px;grid-template-columns:auto minmax(0,1fr);gap:8px 14px}
+  #mosaic .tile.axis .num{grid-column:1/-1;grid-row:auto;text-align:left;align-items:baseline;flex-direction:row}
+  .xp .in{padding:16px;gap:14px}
+  .xp .side{padding:14px}
+  .human{margin-top:24px}
+  .radar{max-width:260px}
+  .path{gap:14px}
+  .stage-l h4{font-size:16px}
+  .traits ul{gap:8px}
+  .traits li{padding:10px 12px}
+  .forma > div{padding:14px}
+  .vault .tx{padding:16px}
+  .vault .nums{gap:10px}
+  .vault .nums b{font-size:20px}
+  .acc summary h3{font-size:15px}
+  .proofs{gap:10px}
+  .pf{padding:14px}
+  .stack{gap:14px}
+  .rings{max-width:220px}
+  .layer{padding:10px 12px}
+  .demos{border-radius:10px}
+  .dtab{padding:8px 12px 8px 8px;font-size:14px}
+  .dpanel{padding:12px;gap:12px}
+  .dout{padding:14px}
+  .dout .line{font-size:14.5px}
+  .matrix{font-size:13px}
+  .ctab{font-size:11.5px}
+  .ctab th,.ctab td{padding:5px 6px}
+  .dwrap{max-height:300px}
+  .chat .bub{font-size:14px}
+  .qs button{font-size:13px;padding:9px 10px}
+  #stack > .wrap{gap:10px}
+  .slist summary{padding:11px 12px;font-size:13.5px}
+  .slist .tl{padding:0 12px 12px;gap:5px}
+  .slist .tool{font-size:12.5px;padding:5px 9px}
+  .tabs{margin:0 -16px;padding:0 16px 6px;width:calc(100% + 32px)}
+  .case .ask p.q{font-size:19px}
+  .case .cols{padding:8px 10px 0}
+  .case .cols > div{padding:6px 0}
+  .caro .slide .im{aspect-ratio:16/10}
+  .caro .slide h3{font-size:20px}
+  .caro .slide p{font-size:14px}
+  .pftog{width:100%;justify-content:center}
+  .pcount{margin-bottom:10px}
+  .card .cb{padding:12px 14px 14px}
+  .card b{font-size:15.5px}
+  .track li{padding:14px}
+  .contact{padding:20px 16px}
+  .contact h2{font-size:26px}
+  .face img{width:48px;height:48px}
+  .rw{gap:8px;padding:9px 6px}
+  .rw .ibox{display:none}
+  dialog{border-radius:0}
+  .dl .bd{padding:16px;gap:14px}
+  .dh h3{font-size:22px}
+  .steps li{grid-template-columns:28px minmax(0,1fr);gap:2px 10px;padding:10px 12px}
+  .steps .ph{grid-column:2}
+  .steps li > span:last-child{grid-column:2}
+  .gal button{width:72px}
+  #totop{width:38px;height:38px}
+  footer{padding-inline:16px}
+}
+
+/* v49 — frise verticale sur mobile */
+.mfrise{display:none}
+@media (max-width:860px){
+  .chart svg{display:none}
+  .mfrise{display:grid;gap:10px;list-style:none;padding:0;margin:4px 0 14px}
+  .mfrise li{display:flex;align-items:stretch;gap:12px;font:600 15px/1.3 var(--body);color:var(--ink)}
+  .mfrise li i{flex:0 0 8px;border-radius:4px;background:var(--tint)}
+  .mfrise li span{display:flex;flex-direction:column;gap:2px;padding:2px 0}
+  .mfrise li small{font:500 11.5px var(--mono);color:var(--muted);letter-spacing:.02em}
+  .mfrise li.next{color:var(--green)}
+  .mfrise li.next i{background:none;border:2px solid var(--green)}
+  .ms{display:flex}
+}
+/* v49 — mobile : stack alignée, dialog sans capture compact, label hero */
+@media (max-width:860px){
+  #stack > .wrap{align-items:stretch}
+  #stack .sh2{width:100%}
+  #stack .sh2 p{max-width:none}
+  .dl .shot:has(> .ph){aspect-ratio:auto;height:56px}
+  .hcopy .hmed span{display:block}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1912,8 +2019,8 @@ section.dark .rings circle.core{fill:url(#rgCore)}
       </div></div>
       <div class="labels" id="lbl" aria-hidden="true"></div>
       <div class="hcopy"><div class="in">
-        <div class="hmed"><img src="img/gaspard-portrait.webp" alt="Gaspard COCHE" width="520" height="520"><span>Gaspard COCHE · Louvain-la-Neuve</span></div>
-                <h1>Business analyst, entre <em>IA</em>, <em style="white-space:nowrap">go-to-market</em> et données de terrain.</h1>
+        <div class="hmed"><img src="img/gaspard-portrait.webp" alt="Gaspard COCHE" width="520" height="520"><span>Business analyst · Louvain-la-Neuve</span></div>
+                <h1>Entre <em>IA</em>, <em style="white-space:nowrap">go-to-market</em> et données de terrain.</h1>
         <p class="sub">Je pars de la façon dont une équipe travaille, je lis ses données et je construis la réponse.</p>
         <div class="cta">
           <a class="btn main" href="#expertises"><svg class="ic" aria-hidden="true"><use href="#ic-arrow"></use></svg>Commencer la visite</a>
@@ -2598,7 +2705,7 @@ $("#proofs").innerHTML=`
     <circle cx="${x(2027.05)}" cy="${3*rh+8+15}" r="7" style="fill:var(--paper);stroke:var(--green);stroke-width:2.5"/><text x="${x(2027.05)}" y="${3*rh+8-6}" text-anchor="end" style="font:500 10.5px var(--mono);fill:var(--green)">2027 : promotion proposée</text>
     <line x1="${L}" x2="${W-R}" y1="${rows.length*rh+22}" y2="${rows.length*rh+22}" style="stroke:var(--tint);stroke-width:1.5"/>
     ${(()=>{let last=-1e9;const XS=MS.map(m=>{let cx=x(m[0]);if(cx-last<19)cx=last+19;last=cx;return cx;});const cy=rows.length*rh+22;return MS.map((m,i)=>`<circle class="jal" cx="${XS[i]}" cy="${cy}" r="7.5" style="fill:${MC[m[2]]}" tabindex="0" data-tip="${esc(m[1])}" data-tipt="${Math.floor(m[0])}"/><text x="${XS[i]}" y="${cy+3.5}" text-anchor="middle" style="font:600 8.5px var(--mono);fill:#fff;pointer-events:none">${i+1}</text>`).join("");})()}
-  </svg><div class="ms">${MS.map((m,i)=>`<span data-tip="${esc(m[1])}" data-tipt="${Math.floor(m[0])}"><i style="background:${MC[m[2]]}">${i+1}</i>${m[1]}</span>`).join("")}</div><p class="cap">Sous les barres, les jalons numérotés : projets livrés, badges, certificat. UCLouvain (2019-2021) précède ce parcours.</p>`;
+  </svg><ol class="mfrise">${rows.map(r=>`<li><i style="background:${r[3]}"></i><span><small>${r[2]>=2026.75?Math.floor(r[1])+" → aujourd'hui":(Math.floor(r[1])===Math.floor(r[2])?Math.floor(r[1]):Math.floor(r[1])+" → "+Math.floor(r[2]))}</small>${r[0]}</span></li>`).join("")}<li class="next"><i></i><span><small>2027</small>Promotion proposée</span></li></ol><div class="ms">${MS.map((m,i)=>`<span data-tip="${esc(m[1])}" data-tipt="${Math.floor(m[0])}"><i style="background:${MC[m[2]]}">${i+1}</i>${m[1]}</span>`).join("")}</div><p class="cap">Sous les barres, les jalons numérotés : projets livrés, badges, certificat. UCLouvain (2019-2021) précède ce parcours.</p>`;
 })();
 
 let layerCur=1;
@@ -2981,7 +3088,7 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   const hero=$("#hero"),stick=$("#hstick"),cv=$("#cv"),lblBox=$("#lbl");if(!hero||!cv)return;
   const rm=matchMedia("(prefers-reduced-motion: reduce)").matches,mob=()=>innerWidth<=860;
   const heroEnd=()=>hero.offsetHeight-innerHeight;
-  let lastY=scrollY;const onScroll=()=>{const y=scrollY,up=y<lastY-4;lastY=y;const r=hero.getBoundingClientRect();const past=mob()?y>60:r.bottom<innerHeight+40;document.documentElement.classList.toggle("scrolled",past||(up&&y>80));hero.classList.toggle("past",r.bottom<=innerHeight);};addEventListener("scroll",onScroll,{passive:true});onScroll();
+  let lastY=scrollY;const onScroll=()=>{const y=scrollY,up=y<lastY-4;lastY=y;const r=hero.getBoundingClientRect();const past=mob()?true:r.bottom<innerHeight+40;document.documentElement.classList.toggle("scrolled",past||(up&&y>80));hero.classList.toggle("past",r.bottom<=innerHeight);};addEventListener("scroll",onScroll,{passive:true});onScroll();
   /* sticky ne tient pas dans certains hôtes (iframe) : bascule en position fixe */
   setTimeout(()=>{if(mob())return;const r0=stick.getBoundingClientRect().top;scrollBy(0,40);const r1=stick.getBoundingClientRect().top;scrollBy(0,-40);if(Math.abs((r1-r0)+40)<2&&hero.getBoundingClientRect().top<=0)hero.classList.add("fixedmode");},800);
   if(!window.THREE){hero.classList.add("nogl");return;}
@@ -3071,8 +3178,8 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   addEventListener("scroll",()=>{const y=scrollY,up=y<prevY-1;prevY=y;if(mob()||rm)return;const hp=heroP();if(done&&up&&hp<0.98&&hp>0.02)setExplore(true);if(hp<=0.01){setExplore(false);if(done){done=false;typed.clear();capI=-1;}}},{passive:true});
   ["wheel","touchstart","keydown"].forEach(ev=>addEventListener(ev,stopAuto,{passive:true}));
   $("#hskip").addEventListener("click",()=>{stopAuto();glide(scrollY+(heroEnd()-sy()),1200);});
-  cv.addEventListener("wheel",e=>{if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&(explore||done||mob())){ringTarget-=e.deltaX*0.004;e.preventDefault();}},{passive:false});
-  cv.addEventListener("pointerdown",e=>{stopAuto();drag=true;lx=e.clientX;cv.classList.add("drag");cv.setPointerCapture(e.pointerId);});
+  cv.addEventListener("wheel",e=>{if(mob())return;if(Math.abs(e.deltaX)>Math.abs(e.deltaY)&&(explore||done)){ringTarget-=e.deltaX*0.004;e.preventDefault();}},{passive:false});
+  cv.addEventListener("pointerdown",e=>{stopAuto();drag=true;lx=e.clientX;cv.classList.add("drag");if(!mob())cv.setPointerCapture(e.pointerId);});
   cv.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();mx=((e.clientX-r.left)/W)*2-1;my=-((e.clientY-r.top)/H)*2+1;if(drag){const dx=e.clientX-lx;lx=e.clientX;if(mob()||done){ringTarget+=dx*0.008;}else{rot+=dx*0.004;vel=dx*0.004;}}});
   const up=()=>{drag=false;cv.classList.remove("drag");};cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
   function go(i){if(flying)return;stopAuto();flying=i;const lbEl=i===8?plb:sats[i].lb;lbEl.classList.add("on");setTimeout(()=>$("#veil").classList.add("on"),260);
@@ -3087,7 +3194,7 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
     if(auto){if(el>3){autoP=Math.min(0.999,autoP+dt/24);const y=autoP*heroEnd();if(Math.abs(sy()-y)>2)scrollBy(0,y-sy());if(autoP>=0.999){auto=false;done=true;}}return autoP;}
     const p=heroP();if(p>=0.98)done=true;if(explore)return 0.999;return p;}
   let pS=(typeof window.__p==="number")?window.__p:0,camYaw=0;const lookT=new THREE.Vector3(WX,0.1,0);
-  function frame(t){requestAnimationFrame(frame);if(!vis)return;if(mob()&&!drag&&frames>240)return;frames++;const dt=Math.min(0.05,(t-last)/1000);last=t;const el=mob()?12:(t-t0)/1000;const pRaw=progress(el,dt);pS+=(pRaw-pS)*Math.min(1,dt*(explore?2.2:3));const p=pS;
+  function frame(t){requestAnimationFrame(frame);if(!vis)return;if(mob()&&!drag&&frames>240&&Math.abs(ringTarget-ringRot)<0.002)return;frames++;const dt=Math.min(0.05,(t-last)/1000);last=t;const el=mob()?12:(t-t0)/1000;const pRaw=progress(el,dt);pS+=(pRaw-pS)*Math.min(1,dt*(explore?2.2:3));const p=pS;
     /* étoile filante */
     if(!mob()&&!rm){if(starT<0){nextStar-=dt;if(nextStar<=0){starT=0;star.visible=true;}}else{starT+=dt;const k=starT/1.6;if(k>=1){star.visible=false;starT=-1;nextStar=16+Math.random()*16;plb.classList.remove("pulse");void plb.offsetWidth;plb.classList.add("pulse");}else{star.position.lerpVectors(starFrom,starTo,k);star.lookAt(starTo);star.rotateY(-Math.PI/2);sTail.material.opacity=0.55*(1-k*0.6);}}}
     const a1=(rm||mob())?1:ease(Math.min(1,Math.max(0,(el-0.2)/1.1))),a2=(rm||mob())?1:ease(Math.min(1,Math.max(0,(el-0.7)/1.0)));
