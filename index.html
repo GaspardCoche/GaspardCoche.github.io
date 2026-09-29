@@ -1777,6 +1777,12 @@ html,body{overflow-x:hidden;max-width:100vw}
   .mlist a.c9 b{color:var(--lg-navy)}
   .hcopy .toc{display:none!important}
 }
+
+/* v41 : hero fixé en fallback quand sticky ne tient pas, fin d'intro propre */
+.hero3d{background:linear-gradient(140deg,#071C2E 0%,#0B2740 45%,#174657 80%,#27758A 115%)}
+.hstick{will-change:transform}
+.hero3d.fixedmode .hstick{position:fixed;top:0;left:0;right:0;height:100vh}
+.hero3d.fixedmode.past .hstick{position:absolute;top:auto;bottom:0}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1890,7 +1896,7 @@ html,body{overflow-x:hidden;max-width:100vw}
         <nav class="toc" aria-label="Sommaire"><a href="#expertises"><b>01</b>Expertises</a><a href="#parcours"><b>02</b>Parcours</a><a href="#ia"><b>03</b>IA en pratique</a><a href="#demos"><b>04</b>Démonstrations</a><a href="#stack"><b>05</b>Outils</a><a href="#cas"><b>06</b>Cas de figure</a><a href="#projets"><b>07</b>Projets</a><a href="#methode"><b>08</b>Méthode</a></nav>
       </div></div>
       <div class="hscroll" id="hskip" aria-hidden="true"><i></i>Passer l'intro</div>
-      <div class="hnav" id="hnav" aria-label="Chapitres"><span class="cur" id="hcur"><b>00</b>Bienvenue</span><ul id="hticks"></ul><span class="hint" id="hhint">défiler pour prendre la main</span><span class="replay" id="hreplay">↺ rejouer</span><span class="arrows"><button id="hprev" aria-label="Tourner à gauche"><svg class="ic" aria-hidden="true"><use href="#ic-arrowl"></use></svg></button><button id="hnext" aria-label="Tourner à droite"><svg class="ic" aria-hidden="true"><use href="#ic-arrow"></use></svg></button></span></div>
+      <div class="hnav" id="hnav" aria-label="Chapitres"><span class="cur" id="hcur"><b>00</b>Bienvenue</span><ul id="hticks"></ul><span class="hint" id="hhint">défiler pour avancer à votre rythme</span><span class="replay" id="hreplay">↺ rejouer</span><span class="arrows"><button id="hprev" aria-label="Tourner à gauche"><svg class="ic" aria-hidden="true"><use href="#ic-arrowl"></use></svg></button><button id="hnext" aria-label="Tourner à droite"><svg class="ic" aria-hidden="true"><use href="#ic-arrow"></use></svg></button></span></div>
       <div class="veil" id="veil" aria-hidden="true"></div>
       </div>
     </header>
@@ -2949,7 +2955,9 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   const hero=$("#hero"),stick=$("#hstick"),cv=$("#cv"),lblBox=$("#lbl");if(!hero||!cv)return;
   const rm=matchMedia("(prefers-reduced-motion: reduce)").matches,mob=()=>innerWidth<=860;
   const heroEnd=()=>hero.offsetHeight-innerHeight;
-  let lastY=scrollY;const onScroll=()=>{const y=scrollY,up=y<lastY-4;lastY=y;const past=y>(mob()?60:heroEnd()+40);document.documentElement.classList.toggle("scrolled",past||(up&&y>80));};addEventListener("scroll",onScroll,{passive:true});onScroll();
+  let lastY=scrollY;const onScroll=()=>{const y=scrollY,up=y<lastY-4;lastY=y;const r=hero.getBoundingClientRect();const past=mob()?y>60:r.bottom<innerHeight+40;document.documentElement.classList.toggle("scrolled",past||(up&&y>80));hero.classList.toggle("past",r.bottom<=innerHeight);};addEventListener("scroll",onScroll,{passive:true});onScroll();
+  /* sticky ne tient pas dans certains hôtes (iframe) : bascule en position fixe */
+  setTimeout(()=>{if(mob())return;const r0=stick.getBoundingClientRect().top;scrollBy(0,40);const r1=stick.getBoundingClientRect().top;scrollBy(0,-40);if(Math.abs((r1-r0)+40)<2&&hero.getBoundingClientRect().top<=0)hero.classList.add("fixedmode");},800);
   if(!window.THREE){hero.classList.add("nogl");return;}
   let renderer;try{renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});}catch(_){hero.classList.add("nogl");return;}
   renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
@@ -3026,13 +3034,13 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   let W=1,H=1;const fit=()=>{W=cv.clientWidth;H=cv.clientHeight;renderer.setSize(W,H,false);if(cssR)cssR.setSize(W,H);cam.aspect=W/H;cam.updateProjectionMatrix();world.position.x=mob()?0:WX;};fit();addEventListener("resize",fit);
   let rot=0,ringRot=0,ringTarget=0,drag=false,lx=0,vel=0,mx=0,my=0,hovI=-1,cur=-1,flying=null,last=performance.now(),t0=last,vis=true,auto=!mob()&&!rm,autoP=0,done=false,explore=false,frames=0,prevY=scrollY,capStable=-1,capSince=0;
   try{new IntersectionObserver(es=>es.forEach(e=>vis=e.isIntersecting),{threshold:0}).observe(stick);}catch(_){}
-  const stopAuto=()=>{if(auto){auto=false;$("#hhint").textContent="glisser pour regarder · cliquer pour entrer";}};
-  const setExplore=v=>{if(explore===v)return;explore=v;$("#hnav").classList.toggle("explore",v);if(v){$("#hhint").textContent="cliquer sur un objet, ou sur la planète contact";}};
+  const stopAuto=()=>{if(auto){auto=false;$("#hhint").textContent="défiler pour avancer · cliquer pour entrer";}};
+  const setExplore=v=>{if(explore===v)return;explore=v;$("#hnav").classList.toggle("explore",v);if(v){$("#hhint").textContent="glisser pour tourner · cliquer pour entrer";}};
   $("#hprev").addEventListener("click",()=>{ringTarget+=Math.PI/4;});$("#hnext").addEventListener("click",()=>{ringTarget-=Math.PI/4;});
   $("#hreplay").addEventListener("click",()=>{setExplore(false);done=false;typed.clear();capI=-1;glide(0,700);auto=false;});
-  addEventListener("scroll",()=>{const y=scrollY,up=y<prevY-1;prevY=y;if(mob()||rm)return;if(done&&up&&y<heroEnd()&&y>4)setExplore(true);if(y<=2)setExplore(false);},{passive:true});
+  addEventListener("scroll",()=>{const y=scrollY,up=y<prevY-1;prevY=y;if(mob()||rm)return;const hp=heroP();if(done&&up&&hp<0.98&&hp>0.01)setExplore(true);if(hp<=0.005)setExplore(false);},{passive:true});
   ["wheel","touchstart","keydown"].forEach(ev=>addEventListener(ev,stopAuto,{passive:true}));
-  $("#hskip").addEventListener("click",()=>{stopAuto();scrollTo({top:heroEnd(),behavior:"smooth"});});
+  $("#hskip").addEventListener("click",()=>{stopAuto();glide(scrollY+(heroEnd()-sy()),1200);});
   cv.addEventListener("pointerdown",e=>{stopAuto();drag=true;lx=e.clientX;cv.classList.add("drag");cv.setPointerCapture(e.pointerId);});
   cv.addEventListener("pointermove",e=>{const r=cv.getBoundingClientRect();mx=((e.clientX-r.left)/W)*2-1;my=-((e.clientY-r.top)/H)*2+1;if(drag){const dx=e.clientX-lx;lx=e.clientX;if(explore||mob()){ringTarget+=dx*0.008;}else{rot+=dx*0.004;vel=dx*0.004;}}});
   const up=()=>{drag=false;cv.classList.remove("drag");};cv.addEventListener("pointerup",up);cv.addEventListener("pointercancel",up);
@@ -3042,9 +3050,11 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
   $("#hticks").addEventListener("click",e=>{const li=e.target.closest("[data-t]");if(li)go(+li.dataset.t);});
   cv.addEventListener("click",()=>{if(Math.abs(vel)<0.002&&hovI>=0)go(hovI);});
   const ease=x=>1-Math.pow(1-x,3),tmp=new THREE.Vector3(),tmp2=new THREE.Vector3(),lerp=(a,b,k)=>a+(b-a)*k,sm=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);};
+  const heroP=()=>{const r=hero.getBoundingClientRect();const total=hero.offsetHeight-innerHeight;return total>0?Math.min(1,Math.max(0,-r.top/total)):0;};
+  const sy=()=>{const r=hero.getBoundingClientRect();return -r.top;};
   function progress(el,dt){if(typeof window.__p==="number")return window.__p;if(rm||mob())return 0.62;if(explore)return 0.62;
-    if(auto){if(el>3){autoP=Math.min(1,autoP+dt/26);const y=autoP*heroEnd();if(Math.abs(scrollY-y)>2)scrollTo(0,y);if(autoP>=1){auto=false;done=true;}}return autoP;}
-    const p=Math.min(1,Math.max(0,scrollY/heroEnd()));if(p>=0.98)done=true;return p;}
+    if(auto){if(el>3){autoP=Math.min(0.999,autoP+dt/26);const y=autoP*heroEnd();if(Math.abs(sy()-y)>2)scrollBy(0,y-sy());if(autoP>=0.999){auto=false;done=true;}}return autoP;}
+    const p=heroP();if(p>=0.98)done=true;return p;}
   let pS=(typeof window.__p==="number")?window.__p:0,camYaw=0;
   function frame(t){requestAnimationFrame(frame);if(!vis)return;if(mob()&&!drag&&frames>240)return;frames++;const dt=Math.min(0.05,(t-last)/1000);last=t;const el=mob()?12:(t-t0)/1000;const pRaw=progress(el,dt);pS+=(pRaw-pS)*Math.min(1,dt*(explore?2.2:3));const p=pS;
     /* étoile filante */
