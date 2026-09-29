@@ -1503,10 +1503,42 @@ nav.top .menu svg{width:20px;height:20px}
 .aib .tl .tool{background:var(--paper)}
 .acc .body .rel{grid-column:1/-1;margin-top:6px}
 .acc .body .rel .eyebrow{margin-bottom:6px;font-size:11.5px;color:var(--blue)}
-</style>
-</head>
-<body>
 
+/* v26 : débordements, chatbot, stack en décalages arrondis */
+.dout{min-width:0;overflow:hidden}
+.log{grid-template-columns:minmax(0,1fr)}
+.log .ln{min-width:0}
+.log .ln > span{min-width:0;overflow-wrap:anywhere}
+.matrix{grid-template-columns:minmax(0,1fr) auto;min-width:0}
+.matrix > span{min-width:0;overflow-wrap:anywhere}
+.hood{min-width:0}
+.hood pre,pre.payload{white-space:pre-wrap;word-break:break-word;max-width:100%}
+.check .ck{min-width:0}.check .ck > span{min-width:0;overflow-wrap:anywhere}
+/* chatbot */
+.chat{display:grid;gap:10px;min-width:0}
+.chat .msg{display:grid;gap:4px;max-width:92%;animation:swap .3s ease both}
+.chat .msg.u{justify-self:end;text-align:right}
+.chat .msg.u .bub{background:#F5CF5C;color:var(--ink);border-radius:14px 14px 4px 14px}
+.chat .msg.a .bub{background:var(--navy2);color:#fff;border-radius:14px 14px 14px 4px}
+.chat .bub{padding:10px 14px;font-size:15px;line-height:1.5}
+.chat .bub small{display:block;font:500 11px var(--mono);color:#9ED8D9;margin-top:6px}
+.chat .who{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#8F8CA0}
+.chat .rules{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.chat .rules span{font:500 10.5px var(--mono);padding:3px 8px;border-radius:4px;background:#3A384A;color:#DCE9F6}
+.chat .rules span.ok{background:#2E6B45;color:#DFF3E4}.chat .rules span.ko{background:#7A3A2E;color:#FCE4DC}.chat .rules span.hu{background:#7A6320;color:#F9F1CC}
+.qs{display:grid;gap:6px}
+.qs button{text-align:left;font:500 14px var(--body);padding:10px 12px;border-radius:10px;background:var(--bg);box-shadow:inset 0 0 0 2px var(--tint);cursor:pointer;color:var(--ink)}
+.qs button:hover{box-shadow:inset 0 0 0 2px var(--lg-teal)}
+.qs button[aria-pressed="true"]{background:var(--lg-navy);color:#fff;box-shadow:none}
+.dform input.free{font:500 15px var(--body);padding:11px 14px;border-radius:12px;border:0;background:var(--bg);color:var(--ink);box-shadow:inset 0 0 0 2px var(--tint);min-width:0}
+/* stack : décalages arrondis, sans trait */
+.sflow{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 26px;padding:10px 0 40px;align-items:start}
+.sflow svg.link{display:none}
+.sg[data-col="1"]{transform:none}
+.sg{transform:translate(var(--dx,0),var(--dy,0));transition:transform .3s}
+.sscale i{background:linear-gradient(90deg,var(--blue),var(--honey))}
+@media (max-width:860px){.sg{transform:none!important}}
+</style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="ic-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4M10 10h4v4h-4z"/></symbol>
@@ -1533,6 +1565,7 @@ nav.top .menu svg{width:20px;height:20px}
 <symbol id="ic-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
 <symbol id="ic-broom" viewBox="0 0 24 24"><path d="M14 3 9 8M9 8l7 7M9 8 4 14l6 6 6-6"/><path d="M6 14l4 4"/></symbol>
 <symbol id="ic-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></symbol>
+<symbol id="ic-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M8 19v2M16 19v2"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/></symbol>
 <symbol id="ic-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
 <symbol id="ic-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 13v6H5V5h6"/></symbol>
 <symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
@@ -1732,7 +1765,7 @@ nav.top .menu svg{width:20px;height:20px}
         <p>Données d'exemple, logique réelle. Chaque démo a son « sous le capot ».</p>
       </div>
       <div class="demos">
-        <div class="dtabs" role="tablist"><button class="dtab" data-demo="copilot" aria-selected="true"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-chip"></use></svg></span>Copilote de qualification</button><button class="dtab" data-demo="routing" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-flow"></use></svg></span>Routage d'un prospect</button><button class="dtab" data-demo="clean" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-broom"></use></svg></span>Nettoyage d'un fichier</button><button class="dtab" data-demo="guard" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg></span>Garde-fou de segment</button></div>
+        <div class="dtabs" role="tablist"><button class="dtab" data-demo="copilot" aria-selected="true"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-chip"></use></svg></span>Copilote de qualification</button><button class="dtab" data-demo="routing" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-flow"></use></svg></span>Routage d'un prospect</button><button class="dtab" data-demo="clean" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-broom"></use></svg></span>Nettoyage d'un fichier</button><button class="dtab" data-demo="bot" aria-selected="false"><span class="ibox t"><svg class="ic" aria-hidden="true"><use href="#ic-bot"></use></svg></span>Assistant client avec garde-fous</button></div>
         <div class="dpanel" id="dpanel"></div>
       </div>
     </div>
@@ -1975,6 +2008,14 @@ const P = [
   ctx:"Confier une tâche à mes agents IA sans être devant mon ordinateur.",
   steps:[["Construire","Application web installable sur iPhone."],["Construire","Connexion aux agents qui tournent dans le cloud, authentification sécurisée."]],
   tools:["claude"], res:"En service au quotidien."},
+ {id:"newsletters", g:"perso", t:"Newsletters automatisées", who:"Veille IA · pour moi et pour d'autres projets", s:"live", kpi:"1 digest par jour · 1 deep dive par semaine · 0 € par mois", ai:[3,"Chaîne complète : collecte des sources, synthèse par Claude (Gemini en repli), mise en page e-mail, envoi ; le gabarit a été réutilisé pour d'autres projets.",["claude","github","python"]], dom:["ia","proc","form"],
+  ctx:"Suivre l'actualité de l'IA sans y passer une heure par jour, et garder une trace de ce qu'il faut tester. Le même gabarit sert ensuite à d'autres newsletters.",
+  steps:[["Concevoir","Format en trois blocs : l'essentiel en trois puces, ce qui me concerne, ce qu'il faut tester cette semaine."],["Construire","Agents planifiés qui lisent les sources, dédoublonnent, rédigent et mettent en page ; file d'essai alimentée d'un clic."],["Construire","Deep dive hebdomadaire archivé dans la base de connaissances."],["Déployer","Envoi chaque matin, repli automatique entre fournisseurs d'IA en cas de panne."],["Transmettre","Gabarit et pipeline réutilisés pour des newsletters de projets."]],
+  tools:["claude","github","python"], res:"Livrée chaque matin depuis juillet 2026."},
+ {id:"design-system", g:"cli", t:"Design system et cadre IA pour les clients", who:"EMASPHERE, Or Cash, 1ndex", s:"wip", kpi:"1 charte appliquée par script · tokens + gabarits · consignes IA", ai:[3,"Tokens, composants et consignes packagés pour que le client génère ses pages et documents avec l'IA en restant dans sa charte ; script qui applique la charte à tout PDF.",["claude","figma","python"]], dom:["design","ia","form"],
+  ctx:"Un client qui adopte l'IA produit vite des pages et des documents hors charte. L'idée : lui donner un cadre (thème, composants, consignes) pour qu'il crée avec l'IA de son côté, proprement.",
+  steps:[["Cartographier","Relevé de la charte : couleurs, typographies, logos et leurs variantes, règles d'usage."],["Concevoir","Tokens et composants réutilisables, gabarits de page et de document."],["Construire","Script qui applique la charte à n'importe quel livrable PDF ; consignes IA qui imposent le thème."],["Transmettre","Guide court pour que le client génère lui-même, dans le cadre."]],
+  tools:["figma","python","claude"], res:"En place chez EMASPHERE, en cours pour deux clients."},
  {id:"claude-stack", g:"perso", img:1, t:"Claude Stack", who:"Ma méthode IA", s:"live", kpi:"8 assistants · 12 connecteurs documentés", ai:[3,"Site qui documente le harness lui-même : 60+ agents, 200+ skills, 25+ connecteurs MCP, règles et cas réels.",["claude", "obsidian"]], dom:["ia", "form"],
   ctx:"Rendre ma façon de travailler avec l'IA compréhensible et partageable.",
   steps:[["Cartographier","Inventaire de ma configuration : assistants, outils connectés, règles."],["Construire","Site de documentation avec des cas d'usage réels."]],
@@ -2210,7 +2251,7 @@ const BRAND={hubspot:["#FF7A59","#fff"],make:["#6D00CC","#fff"],n8n:["#EA4B71","
 const TIPX={"Sales Navigator":"Ciblage des prospects par fonction, secteur et taille avant enrichissement.","Phantombuster":"Extraction automatisée des listes de prospects.","FullEnrich":"Enrichissement en cascade des e-mails et téléphones, 70 % de crédits économisés.","Aircall":"Téléphonie reliée au CRM, nettoyage des appels orphelins.","Agents IA":"Assistants à rôle unique avec accès limité aux outils.","Serveurs MCP":"Protocole qui expose des outils à un modèle ; j'en ai branché douze et écrit un.","Recherche documentaire (RAG)":"Index local de 13 000 chunks avec reranking et graphe de liens.","Lemlist":"Séquences e-mail multicanales, diagnostic des taux de réponse.","ClickUp":"Projets d'onboarding client, synchronisés depuis les deals HubSpot.","Teamleader":"CRM de certains partenaires, données à réconcilier.","Trends Pro":"Données financières des entreprises belges pour qualifier les comptes.","Cloud Run":"Hébergement du serveur MCP, mise à l'échelle à zéro.","Firestore":"Sessions et jetons OAuth par utilisateur du serveur MCP.","Resend":"E-mails transactionnels des applications (1ndex).","Playwright":"Tests de bout en bout et captures automatisées.","Ollama":"Modèles locaux pour les traitements de nuit, sans coût d'API.","LanceDB":"Index vectoriel local de la base de connaissances.","Claude Code":"L'outil avec lequel je construis, avec mes agents, hooks et skills.","SCSS":"Feuilles de style structurées pour les sites clients.","SQL":"Requêtes sur Supabase et PostgreSQL, contrôles de qualité de données.","Bash":"Scripts de déploiement, de sauvegarde et de migration.","Vue.js":"Interfaces de projets d'études et d'outils internes.","Node.js":"API et scripts côté serveur, extensions Chrome.","FastAPI":"Le serveur MCP Segments : OAuth, outils, garde-fous.","Puppeteer":"Captures et automatisations de navigateur pour les audits.","Beautiful Soup":"Extraction de données de sites pour l'enrichissement.","pandas":"Nettoyage et rapprochement de fichiers avant import CRM.","Framer Motion":"Animations d'interface dans les applications React.","MediaPipe":"Reconnaissance gestuelle dans un projet d'interface expérimentale.","PHP":"Sites WordPress et scripts d'upload côté hébergeur (1ndex, Cartesa).","SQL":"Requêtes sur Supabase, PostgreSQL et MySQL, contrôles de qualité de données.","Bash":"Scripts de déploiement, de sauvegarde et de migration.","Vue.js":"Interfaces de projets d'études et d'outils internes.","Node.js":"API et scripts côté serveur, extensions Chrome.","FastAPI":"Le serveur MCP Segments : OAuth, outils, garde-fous.","Puppeteer":"Captures et automatisations de navigateur pour les audits et les tests.","Selenium":"Automatisations de navigateur pour la collecte de données CRM.","Beautiful Soup":"Extraction de données de sites pour l'enrichissement.","pandas":"Nettoyage et rapprochement de fichiers avant import CRM.","Framer Motion":"Animations d'interface dans les applications React.","MediaPipe":"Reconnaissance gestuelle dans un projet d'interface expérimentale.","MySQL":"Bases des sites WordPress sur cPanel.","LanceDB":"Index vectoriel local de la base de connaissances.","Cloud Run":"Hébergement du serveur MCP, mise à l'échelle à zéro.","Firestore":"Sessions et jetons OAuth par utilisateur du serveur MCP.","GitHub Actions":"Dix agents planifiés qui tournent dans le cloud : veille, synthèse, orchestration.","launchd / cron":"Tâches planifiées sur Mac : réindexation, sauvegardes, veille.","REST et webhooks":"Intégrations entre HubSpot, Make, ClickUp, Aircall et les applications.","XML-RPC":"Migration du site Or Cash sur Odoo par script, avec sauvegarde et rollback.","cPanel":"Hébergement o2switch : domaines, boîtes mail, DNS, bases.","FileZilla / SFTP":"Transferts de fichiers vers les hébergements clients.","Resend":"E-mails transactionnels des applications (1ndex).","ChatGPT / API OpenAI":"Second avis, rédaction, et modèle de repli dans FlowCopy.","Gemini / API Google":"Synthèses de veille, repli de Claude dans les agents cloud, génération d'images.","DeepSeek":"Modèle économique testé pour les tâches de reformulation en volume.","Qwen via Ollama":"Modèle local pour les traitements de nuit, sans coût d'API ni données qui sortent.","Nano Banana":"Génération et retouche d'images pour les sites et les decks.","Veo":"Courtes vidéos générées pour des tests de contenu.","Claude Code":"L'outil avec lequel je construis presque tout, avec mes agents, hooks et skills.","Claude Cowork":"Poste de travail IA des commerciaux, branché sur HubSpot par connecteur.","Claude Design":"Maquettes et pages générées puis retravaillées à la main.","Agents et sous-agents":"Plus de soixante rôles, chacun limité aux outils dont il a besoin.","Skills et hooks":"Procédures réutilisables et garde-fous automatiques (compte GitHub, secrets).","Google AI Studio":"Prototypage de prompts Gemini et tests de modèles.","NotebookLM":"Lecture assistée de longs documents et de rapports.","VS Code":"Éditeur principal pour les applications.","Cursor":"Éditeur assisté par IA, pour comparer les approches.","Antigravity":"Environnement agentique testé sur des projets perso.","Chrome DevTools":"Débogage, audits de performance, captures automatisées.","Terminal zsh":"Là où tout se lance : scripts, déploiements, agents.","HubSpot CMS":"Site emasphere.com en trois langues, pages générées depuis des contenus structurés.","Google Search Console":"Suivi de l'indexation et des requêtes après une refonte.","Google Tag Manager":"Balises et événements de conversion sans toucher au code."};
 const BRANDX={"PHP":["#777BB4","#fff"],"SQL":["#336791","#fff"],"Bash":["#293138","#fff"],"Vue.js":["#42B883","#0B2740"],"Node.js":["#339933","#fff"],"FastAPI":["#009688","#fff"],"Puppeteer":["#40B5A4","#0B2740"],"Playwright":["#2EAD33","#fff"],"Selenium":["#43B02A","#fff"],"Beautiful Soup":["#3776AB","#fff"],"pandas":["#150458","#fff"],"MySQL":["#00758F","#fff"],"Cloud Run":["#4285F4","#fff"],"Firestore":["#FFCA28","#0B2740"],"GitHub Actions":["#2088FF","#fff"],"FileZilla / SFTP":["#BF0000","#fff"],"Resend":["#111","#fff"],"ChatGPT / API OpenAI":["#10A37F","#fff"],"Gemini / API Google":["#4285F4","#fff"],"DeepSeek":["#4D6BFE","#fff"],"Qwen via Ollama":["#111","#fff"],"Nano Banana":["#F9AB00","#0B2740"],"Veo":["#34A853","#fff"],"Claude Code":["#D97757","#fff"],"Claude Cowork":["#D97757","#fff"],"Claude Design":["#D97757","#fff"],"Google AI Studio":["#4285F4","#fff"],"NotebookLM":["#4285F4","#fff"],"VS Code":["#007ACC","#fff"],"Cursor":["#111","#fff"],"Antigravity":["#111","#fff"],"Chrome DevTools":["#4285F4","#fff"],"Lemlist":["#3B5BFF","#fff"],"ClickUp":["#7B68EE","#fff"],"Sales Navigator":["#0A66C2","#fff"],"Phantombuster":["#5B4DFF","#fff"],"FullEnrich":["#0B2740","#fff"],"Aircall":["#00B388","#fff"],"HubSpot CMS":["#FF7A59","#fff"],"Google Search Console":["#4285F4","#fff"],"Google Tag Manager":["#4285F4","#fff"]};
 toolEl=(id,label)=>{const br=BRAND[id]||BRANDX[label];return `<span class="tool" tabindex="0" data-tip="${esc(TIP[id]||TIPX[label]||"")}" data-tipt="${esc(label)}" style="${br?`--brand:${br[0]};--brand-ink:${br[1]}`:""}">${id&&document.getElementById("i-"+id)?`<svg aria-hidden="true"><use href="#i-${id}"></use></svg>`:""}${label}</span>`;};
-$("#sgrid").innerHTML=`<div class="sscale"><span>Code</span><i></i><span>Outil</span></div><div class="sflow" id="sflow"><svg class="link" aria-hidden="true"><path id="slink" d=""/></svg>${TOOL_GROUPS.map(([t,sub,ids,extra],i)=>{const row=Math.floor(i/3),col=row%2?2-(i%3):i%3;return `<div class="sg" data-i="${i}" data-col="${col}" style="grid-row:${row+1};grid-column:${col+1}"><div class="shd"><span class="no">0${i+1}</span><h3>${t}</h3></div><small>${sub}</small><div class="tl">${ids.map(id=>toolEl(id,TOOLS[id])).join("")}${(extra||[]).map(x=>toolEl(null,x)).join("")}</div></div>`;}).join("")}</div>`;
+$("#sgrid").innerHTML=`<div class="sscale"><span>Code</span><i></i><span>Outil</span></div><div class="sflow" id="sflow"><svg class="link" aria-hidden="true"><path id="slink" d=""/></svg>${TOOL_GROUPS.map(([t,sub,ids,extra],i)=>{const row=Math.floor(i/3),col=i%3;const dy=[[0,44,16],[34,0,40],[12,48,0]][row][col],dx=[[0,0,0],[22,0,-22],[0,0,0]][row][col];return `<div class="sg" data-i="${i}" data-col="${col}" style="grid-row:${row+1};grid-column:${col+1};--dy:${dy}px;--dx:${dx}px"><div class="shd"><span class="no">0${i+1}</span><h3>${t}</h3></div><small>${sub}</small><div class="tl">${ids.map(id=>toolEl(id,TOOLS[id])).join("")}${(extra||[]).map(x=>toolEl(null,x)).join("")}</div></div>`;}).join("")}</div>`;
 function drawSlink(){const f=$("#sflow"),p=$("#slink");if(!f||!p)return;const fr=f.getBoundingClientRect();const cs=[...f.querySelectorAll(".sg")].sort((a,b)=>+a.dataset.i-+b.dataset.i).map(el=>{const r=el.getBoundingClientRect();return [r.left-fr.left+r.width/2,r.top-fr.top+r.height/2,+el.dataset.col];});
   if(cs.length<2||innerWidth<=860){p.setAttribute("d","");return;}let dd=`M${cs[0][0]},${cs[0][1]}`;for(let i=1;i<cs.length;i++){const [x1,y1,c1]=cs[i-1],[x2,y2,c2]=cs[i];if(c1===c2){const sgn=c1===2?1:-1,o=Math.abs(x2-x1)*0+120;dd+=` C${x1+sgn*o},${y1+(y2-y1)*0.35} ${x2+sgn*o},${y2-(y2-y1)*0.35} ${x2},${y2}`;}else{const mx=(x1+x2)/2;dd+=` C${mx},${y1} ${mx},${y2} ${x2},${y2}`;}}p.setAttribute("d",dd);}
 drawSlink();addEventListener("resize",drawSlink);setTimeout(drawSlink,600);
@@ -2293,6 +2334,55 @@ function renderCase(){
 
 
 /* démonstrations */
+
+/* démo assistant avec garde-fous */
+const KB=[["Tarifs","L'offre Enterprise démarre à 500 € par mois, engagement annuel, selon le nombre d'entités.","Page tarifs, mise à jour septembre 2026"],["Clôture","Pour raccourcir la clôture mensuelle : connecter le logiciel comptable, définir les rapports une fois, puis les rafraîchir automatiquement chaque mois.","Guide « Clôture en 5 jours »"],["Connecteurs","Connecteurs disponibles : Odoo, Exact, Yuki, Sage, Winbooks, Bob, et import Excel.","Liste des connecteurs"],["Export","Si un export échoue, vérifier d'abord la période sélectionnée et les droits du compte ; sinon le support intervient sous 4 h ouvrées.","Centre d'aide, article 214"]];
+const QS=[
+ {q:"Combien coûte l'offre Enterprise ?",k:"Tarifs",kind:"fact"},
+ {q:"Comment clôturer le mois plus vite ?",k:"Clôture",kind:"fact"},
+ {q:"Vous êtes moins chers que Power BI ?",kind:"compare"},
+ {q:"Donnez-moi le numéro du directeur financier de Delvaux.",kind:"pii"},
+ {q:"Mon export ne marche plus depuis ce matin.",k:"Export",kind:"ticket"},
+ {q:"Écris-moi un poème sur les chats.",kind:"off"},
+ {q:"Est-ce que vous gérez la paie ?",kind:"unknown"}
+];
+function classify(q){const t=q.toLowerCase();for(const p of QS)if(p.q.toLowerCase()===t)return p;
+  if(/(numéro|téléphone|mail|adresse).*(de |du |d')/.test(t)&&/[A-Z][a-z]+/.test(q))return {q,kind:"pii"};
+  if(/moins cher|meilleur que|vs |versus|power bi|qlik|tableau/.test(t))return {q,kind:"compare"};
+  if(/prix|tarif|coût|combien/.test(t))return {q,k:"Tarifs",kind:"fact"};
+  if(/clôtur|cloture|mensuel/.test(t))return {q,k:"Clôture",kind:"fact"};
+  if(/connecteur|odoo|exact|sage|yuki|compta/.test(t))return {q,k:"Connecteurs",kind:"fact"};
+  if(/export|bug|marche plus|erreur|panne/.test(t))return {q,k:"Export",kind:"ticket"};
+  if(/poème|blague|recette|météo|foot/.test(t))return {q,kind:"off"};
+  return {q,kind:"unknown"};}
+function answer(p){const R=(a,b,c,d)=>({perim:a,data:b,pii:c,human:d});
+  switch(p.kind){
+    case "fact":{const kb=KB.find(x=>x[0]===p.k);return {txt:kb[1],src:kb[2],rules:R("ok","ok","ok","")};}
+    case "compare":return {txt:"Je ne compare pas avec d'autres outils : je n'ai pas leurs conditions et je risquerais de me tromper. Ce que je peux vous dire sur notre offre : reporting prêt à l'emploi pour les directions financières, connecté à la comptabilité, à partir de 500 € par mois. Voulez-vous un rendez-vous avec un conseiller ?",src:"Règle : pas de comparaison non sourcée",rules:R("ok","ko","ok","hu")};
+    case "pii":return {txt:"Je ne communique pas de coordonnées personnelles, même si elles figurent dans nos systèmes. Si vous cherchez à joindre cette entreprise, je peux vous orienter vers son contact général.",src:"Règle : aucune donnée personnelle de tiers",rules:R("ok","ok","ko","")};
+    case "ticket":{const kb=KB.find(x=>x[0]===p.k);return {txt:kb[1]+" J'ai ouvert le ticket #4 821 avec votre message ; un membre du support vous répond par e-mail.",src:kb[2]+" · ticket créé dans HubSpot, attribué à une personne",rules:R("ok","ok","ok","hu")};}
+    case "off":return {txt:"Ce n'est pas mon domaine, je reste sur le reporting financier. Je peux vous aider sur les tarifs, les connecteurs, la clôture ou un problème technique.",src:"Règle : périmètre",rules:R("ko","ok","ok","")};
+    default:return {txt:"Je ne trouve pas cette information dans ma base, et je préfère ne pas inventer. Je transmets votre question à un conseiller, qui vous répond sous un jour ouvré.",src:"Règle : ne jamais inventer, escalade humaine",rules:R("ok","ko","ok","hu")};}}
+let botHist=[];
+function demoBot(){
+  $("#dpanel").innerHTML=`<div class="dform"><p class="eyebrow" style="color:var(--tealc)">Posez une question à l'assistant</p><div class="qs">${QS.map((p,i)=>`<button data-q="${i}" aria-pressed="false">${esc(p.q)}</button>`).join("")}</div><label>Ou tapez la vôtre<input class="free" id="bfree" placeholder="Ex. : quels connecteurs comptables ?"></label><div class="acts"><button class="btn main" id="bsend">${ico("ic-arrow")}Envoyer</button><button class="btn" id="breset">${ico("ic-arrowl")}Effacer</button></div>
+    <p class="note">Un assistant pour clients, tel que je le construis : il répond seulement avec ce qui est dans sa base, cite sa source, refuse les données personnelles et les comparaisons non sourcées, et passe la main à un humain quand il ne sait pas. Quatre garde-fous vérifiés à chaque message.</p></div>
+    <div class="dout"><p class="eyebrow">${ico("ic-bot")}Assistant client</p><div class="chat" id="chat">${botHist.length?"":'<p style="color:#B9B6C6">Choisissez une question ou écrivez la vôtre.</p>'}</div>
+    <details class="hood"><summary>Sous le capot : les quatre garde-fous</summary><pre>${esc(`1. Périmètre   : la question concerne-t-elle le produit ? sinon, redirection polie
+2. Donnée      : la réponse existe-t-elle dans la base de connaissances ? sinon, "je ne sais pas" + escalade
+3. Vie privée  : la réponse contiendrait-elle des données personnelles de tiers ? si oui, refus
+4. Humain      : incident, litige ou incertitude ? création d'un ticket attribué à une personne
+
+Chaque réponse cite sa source. Aucune comparaison avec un concurrent sans source.
+Journal : question, règle déclenchée, source, temps de réponse, pour relecture hebdomadaire.`)}</pre></details></div>`;
+  botHist.forEach(m=>renderMsg(m,false));
+}
+function renderMsg(m,anim){const c=$("#chat");if(!c)return;if(c.querySelector("p"))c.innerHTML="";
+  if(m.u)c.insertAdjacentHTML("beforeend",`<div class="msg u"><span class="who">Vous</span><div class="bub">${esc(m.u)}</div></div>`);
+  else{const r=m.a.rules;const L={perim:"périmètre",data:"donnée disponible",pii:"vie privée",human:"passage à un humain"};c.insertAdjacentHTML("beforeend",`<div class="msg a"><span class="who">Assistant · ${m.ms} ms</span><div class="bub">${esc(m.a.txt)}<small>Source : ${esc(m.a.src)}</small></div><div class="rules">${Object.entries(r).map(([k,v])=>`<span class="${v}">${L[k]}${v==="ko"?" : bloqué":(v==="hu"?" : oui":"")}</span>`).join("")}</div></div>`);}
+  c.scrollTop=c.scrollHeight;}
+function botAsk(q){if(!q.trim())return;const p=classify(q);const u={u:q};botHist.push(u);renderMsg(u);setTimeout(()=>{const a={a:answer(p),ms:400+Math.round(Math.random()*500)};botHist.push(a);renderMsg(a);},650);}
+
 /* démo nettoyage */
 const RAW=[
  {n:"Marie Dupont",e:" Marie.Dupont@Delvaux-Group.be ",c:"Belgique",p:"0479 12 34 56",s:"Delvaux Group SA"},
@@ -2344,11 +2434,13 @@ function runClean(){
 const COS=[
  {n:"Groupe Delvaux SA",sec:"Distribution industrielle",emp:120,ent:3,ca:"45 M€",age:"1994",pays:"Belgique",site:"delvaux-group.example",web:["Trois filiales : Delvaux Distribution, Delvaux Logistics, Delvaux Services","Implantations à Liège, Gand et Lille","Page carrière : recrute un contrôleur de gestion"],bnb:["Effectif moyen 2025 : 120 ETP","Chiffre d'affaires 2025 : 45,2 M€","Comptes consolidés déposés"],erp:"Odoo Enterprise",rep:"Excel, clôture mensuelle à J+15"},
  {n:"Nova Logistics",sec:"Transport",emp:64,ent:1,ca:"12 M€",age:"2018",pays:"France",site:"nova-logistics.example",web:["Une seule entité, siège à Lyon","Croissance : 20 recrutements annoncés en 2026","Blog : « nos tableaux de bord Power BI »"],bnb:["Effectif 2025 : 64 salariés","Chiffre d'affaires 2025 : 12,1 M€"],erp:"Sage 100",rep:"Power BI branché sur la compta"},
- {n:"Atelier Mercier",sec:"Inconnu",emp:null,ent:null,ca:null,age:"2009",pays:"Belgique",site:"atelier-mercier.example",web:["Site vitrine d'une page, aucune mention d'équipe","Pas de page carrière"],bnb:["Comptes abrégés : effectif et chiffre d'affaires non publiés"],erp:null,rep:null}
+ {n:"Atelier Mercier",sec:"Inconnu",emp:null,ent:null,ca:null,age:"2009",pays:"Belgique",site:"atelier-mercier.example",web:["Site vitrine d'une page, aucune mention d'équipe","Pas de page carrière"],bnb:["Comptes abrégés : effectif et chiffre d'affaires non publiés"],erp:null,rep:null},
+ {n:"Fiduciaire Lambert & Associés",sec:"Expertise comptable",emp:38,ent:1,ca:"6 M€",age:"1988",pays:"Belgique",site:"fiduciaire-lambert.example",web:["Cabinet comptable, 1 800 clients PME","Page « nos outils » : Odoo, Exact, Yuki","Recrute deux comptables"],bnb:["Effectif 2025 : 38 ETP","Chiffre d'affaires 2025 : 6,1 M€"],erp:"Exact Online",rep:"Tableaux Excel par client"}
 ];
 const V6={consol:{fr:"Profil consolidé, à contacter. Angle : consolidation des trois filiales et clôture mensuelle plus courte. Interlocuteur : le directeur financier.",nl:"Geconsolideerd profiel, te contacteren. Invalshoek: consolidatie van de drie filialen en een kortere maandafsluiting. Gesprekspartner: de financieel directeur.",en:"Consolidated profile, worth contacting. Angle: consolidating the three subsidiaries and a shorter monthly close. Contact: the CFO."},
  growth:{fr:"Profil en croissance, à contacter. Angle : compléter Power BI par un reporting de gestion prêt à l'emploi avant que l'équipe grossisse. Interlocuteur : le dirigeant.",nl:"Groeiprofiel, te contacteren. Invalshoek: Power BI aanvullen met een kant-en-klare managementrapportering voor het team groeit. Gesprekspartner: de bedrijfsleider.",en:"Growth profile, worth contacting. Angle: complement Power BI with ready-to-use management reporting before the team grows. Contact: the CEO."},
  unknown:{fr:"Je ne conclus pas. Effectifs, entités et chiffre d'affaires manquent, et les sources externes ne les donnent pas. À compléter avant tout appel.",nl:"Ik trek geen conclusie. Personeelsbestand, entiteiten en omzet ontbreken, en externe bronnen geven ze niet. Aan te vullen voor elk gesprek.",en:"No conclusion. Headcount, entities and revenue are missing, and external sources do not provide them. To be completed before any call."},
+ partner:{fr:"Hors cible en direct, mais partenaire potentiel. Cabinet comptable avec plus de 1 800 clients PME : la bonne porte est le programme partenaires, pas une vente directe.",nl:"Geen directe doelgroep, wel een mogelijke partner. Boekhoudkantoor met meer dan 1 800 kmo-klanten: de juiste ingang is het partnerprogramma, geen directe verkoop.",en:"Out of direct target, but a potential partner. Accounting firm with 1,800+ SME clients: the right door is the partner programme, not a direct sale."},
  out:{fr:"Hors cible pour l'instant. Effectifs sous le seuil. Relance dans six mois, sans séquence automatique.",nl:"Voorlopig buiten doelgroep. Personeelsbestand onder de drempel. Opvolging over zes maanden, zonder automatische sequentie.",en:"Out of target for now. Headcount below threshold. Follow up in six months, no automated sequence."}};
 function qualify(c){const M=[];const row=(k,st,v)=>M.push([k,st,v]);const age=2026-parseInt(c.age,10);
   if(c.emp==null) row("Plus de 50 salariés","q","inconnu"); else row("Plus de 50 salariés",c.emp>50?"ok":"ko",c.emp+" ETP");
@@ -2358,8 +2450,8 @@ function qualify(c){const M=[];const row=(k,st,v)=>M.push([k,st,v]);const age=20
   row("Besoin de reporting hors compta",c.rep?(c.rep.includes("Excel")?"ok":"q"):"q",c.rep||"inconnu");
   row("Logiciel comptable connu",c.erp?"ok":"q",c.erp||"inconnu");
   const miss=M.filter(m=>m[1]==="q").length;
-  let type; if(miss>=3) type="unknown"; else if(c.emp>50&&c.ent>1&&age>10) type="consol"; else if(c.emp>50) type="growth"; else type="out";
-  const next={consol:"Créer la tâche « appel CFO » et épingler cet avis sur la fiche.",growth:"Proposer une démo courte centrée sur le reporting mensuel.",unknown:"Demander l'enrichissement de la fiche avant tout appel.",out:"Planifier une relance à six mois."}[type];
+  let type; if(miss>=3) type="unknown"; else if(/comptab|fiduciaire/i.test(c.sec)&&/\d ?\d{3} clients/.test(c.web.join(" "))) type="partner"; else if(c.emp>50&&c.ent>1&&age>10) type="consol"; else if(c.emp>50) type="growth"; else type="out";
+  const next={partner:"Basculer vers le parcours partenaire : proposer le programme cabinet, pas une démo client.",consol:"Créer la tâche « appel CFO » et épingler cet avis sur la fiche.",growth:"Proposer une démo courte centrée sur le reporting mensuel.",unknown:"Demander l'enrichissement de la fiche avant tout appel.",out:"Planifier une relance à six mois."}[type];
   return {M,type,next};}
 let coLang="fr";
 function demoCopilot(){
@@ -2450,7 +2542,7 @@ document.addEventListener("change",e=>{const t=e.target;
   if(t.id==="dco")demoCopilot(); if(t.id==="dlang"||t.id==="dpays")demoRouting();
   if(t.dataset.gp!=null){GROWS[+t.dataset.gp].p=t.value;demoGuard();} if(t.dataset.go!=null){GROWS[+t.dataset.go].o=t.value;demoGuard();} if(t.dataset.gv!=null){GROWS[+t.dataset.gv].v=t.value;demoGuard();}});
 let demoCur="copilot";
-function renderDemo(){document.querySelectorAll(".dtab").forEach(t=>t.setAttribute("aria-selected",t.dataset.demo===demoCur));$("#dpanel").className="dpanel";({copilot:demoCopilot,routing:demoRouting,clean:demoClean,guard:demoGuard})[demoCur]();}
+function renderDemo(){document.querySelectorAll(".dtab").forEach(t=>t.setAttribute("aria-selected",t.dataset.demo===demoCur));$("#dpanel").className="dpanel";({copilot:demoCopilot,routing:demoRouting,clean:demoClean,bot:demoBot,guard:demoGuard})[demoCur]();}
 
 /* projets */
 const GICO={ema:"ic-building",cli:"ic-store",perso:"ic-user",soon:"ic-rocket"};
@@ -2516,7 +2608,9 @@ document.addEventListener("click",e=>{
   const cs2=t.closest("[data-cstep]"); if(cs2){cGo(cIdx+(+cs2.dataset.cstep));cAuto();return;}
   const dt=t.closest("[data-demo]"); if(dt){demoCur=dt.dataset.demo;renderDemo();return;}
   if(t.closest("#dgo")){runCopilot();return;}
-  if(t.closest("#cgo")){runClean();return;} if(t.closest("#creset")){demoClean();return;}
+  if(t.closest("#cgo")){runClean();return;}
+  const qb=t.closest("[data-q]"); if(qb){document.querySelectorAll("[data-q]").forEach(x=>x.setAttribute("aria-pressed",x===qb));botAsk(QS[+qb.dataset.q].q);return;}
+  if(t.closest("#bsend")){const f=$("#bfree");botAsk(f.value);f.value="";return;} if(t.closest("#breset")){botHist=[];demoBot();return;} if(t.closest("#creset")){demoClean();return;}
   const lb=t.closest("[data-lang]"); if(lb){coLang=lb.dataset.lang;document.querySelectorAll("[data-lang]").forEach(x=>x.setAttribute("aria-pressed",x===lb));const ty=$("#dout").dataset.type;if(ty)type($("#dv"),`<b>${V6[ty][coLang].split(". ")[0]}.</b> ${V6[ty][coLang].split(". ").slice(1).join(". ")}`);return;}
   if(t.closest("#dsend")){sendOne();return;} if(t.closest("#dsend10")){send10();return;}
   if(t.closest("#gadd")){GROWS.push({p:"hs_language",o:"EQ",v:"fr"});demoGuard();return;}
@@ -2534,6 +2628,7 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("mouseover",e=>{const c=e.target.closest&&e.target.closest("[data-open]");if(c&&!c.dataset.pre){c.dataset.pre=1;const p=byId[c.dataset.open];if(p&&p.img){const im=new Image();im.src="img/"+p.id+".webp";}}});
 document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&e.target.id==="bfree"){botAsk(e.target.value);e.target.value="";e.preventDefault();return;}
   if((e.key==="Enter"||e.key===" ")&&e.target.classList&&e.target.classList.contains("card")){openP(e.target.dataset.open);e.preventDefault();return;}
   if($("#dlg").open&&(e.key==="ArrowRight"||e.key==="ArrowLeft")){step(e.key==="ArrowRight"?1:-1);e.preventDefault();return;}
   const tb=e.target.closest&&e.target.closest(".tab");
