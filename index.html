@@ -1561,6 +1561,14 @@ nav.top .menu svg{width:20px;height:20px}
   .slist summary small{margin-left:auto;font:500 10.5px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
   .slist .tl{padding:0 14px 14px;gap:6px}
 }
+
+/* v28 : titre de la stack au centre de l'arc */
+#stack > .wrap{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:center}
+#stack .sh2{grid-template-columns:1fr;margin:0;gap:12px;align-content:center}
+#stack .sh2 h2{font-size:clamp(26px,3vw,38px)}
+#stack .sh2 p{font-size:14.5px;max-width:22em}
+#stack .sgrid{min-width:0}
+@media (max-width:860px){#stack > .wrap{grid-template-columns:1fr}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -1799,7 +1807,7 @@ nav.top .menu svg{width:20px;height:20px}
     <div class="wrap">
       <div class="sh2">
         <div><p class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#ic-plug"></use></svg>Stack</p><h2>Outils du quotidien</h2></div>
-        <p>Du code pur à l'outil clé en main. Ce qui compte, c'est comment ils se parlent : un agent qui lit le CRM, écrit dans une base, déclenche un scénario Make et prévient sur Slack. Au survol, ce que chaque outil me permet.</p>
+        <p>Du code pur à l'outil clé en main. Ce qui compte, c'est comment ils se parlent : un agent lit le CRM, écrit dans une base, déclenche un scénario, prévient sur Slack. Au survol, ce que chaque outil me permet.</p>
       </div>
       <div class="sbody">
       <div class="sgrid" id="sgrid"></div>
@@ -2031,10 +2039,10 @@ const P = [
   ctx:"Confier une tâche à mes agents IA sans être devant mon ordinateur.",
   steps:[["Construire","Application web installable sur iPhone."],["Construire","Connexion aux agents qui tournent dans le cloud, authentification sécurisée."]],
   tools:["claude"], res:"En service au quotidien."},
- {id:"newsletters", g:"perso", t:"Newsletters automatisées", who:"Veille IA · pour moi et pour d'autres projets", s:"live", kpi:"1 digest par jour · 1 deep dive par semaine · 0 € par mois", ai:[3,"Chaîne complète : collecte des sources, synthèse par Claude (Gemini en repli), mise en page e-mail, envoi ; le gabarit a été réutilisé pour d'autres projets.",["claude","github","python"]], dom:["ia","proc","form"],
-  ctx:"Suivre l'actualité de l'IA sans y passer une heure par jour, et garder une trace de ce qu'il faut tester. Le même gabarit sert ensuite à d'autres newsletters.",
-  steps:[["Concevoir","Format en trois blocs : l'essentiel en trois puces, ce qui me concerne, ce qu'il faut tester cette semaine."],["Construire","Agents planifiés qui lisent les sources, dédoublonnent, rédigent et mettent en page ; file d'essai alimentée d'un clic."],["Construire","Deep dive hebdomadaire archivé dans la base de connaissances."],["Déployer","Envoi chaque matin, repli automatique entre fournisseurs d'IA en cas de panne."],["Transmettre","Gabarit et pipeline réutilisés pour des newsletters de projets."]],
-  tools:["claude","github","python"], res:"Livrée chaque matin depuis juillet 2026."},
+  {id:"newsletters", g:"perso", t:"Newsletter IA automatisée", who:"Veille quotidienne · nourrit ma base de connaissances", s:"live", kpi:"1 digest par jour · 1 deep dive par semaine · 10 agents à rôles et permissions", ai:[3,"Dix agents cloud à rôle unique (collecte, tri, synthèse, rédaction, orchestration), chacun avec ses permissions ; Claude pour la synthèse, Gemini en repli ; chaque édition enrichit le vault, que mes autres agents consultent ensuite.",["claude","github","python","obsidian"]], dom:["ia","proc","form"],
+  ctx:"Me tenir au courant de l'actualité de l'IA sans y passer une heure par jour, et faire en sorte que ce qui est lu ne se perde pas : chaque édition alimente ma base de connaissances.",
+  steps:[["Concevoir","Format en trois blocs : l'essentiel en trois puces, ce qui me concerne, ce qu'il faut tester cette semaine. Une file d'essai alimentée d'un clic."],["Concevoir","Des agents à rôle unique, avec des permissions distinctes : la veille ne peut que lire, la synthèse écrit dans le vault, l'orchestrateur seul déclenche les autres."],["Construire","Collecte des sources, dédoublonnage, synthèse par Claude avec Gemini en repli, mise en page e-mail, envoi planifié."],["Construire","Deep dive hebdomadaire et fiches « à tester » archivés dans la base de connaissances, réindexés pour la recherche."],["Déployer","Envoi chaque matin depuis juillet 2026 ; retries, limite de tours et repli entre fournisseurs."]],
+  tools:["claude","github","python","obsidian"], res:"Livrée chaque matin ; la base de connaissances grandit avec elle."},
  {id:"design-system", g:"cli", t:"Design system et cadre IA pour les clients", who:"EMASPHERE, Or Cash, 1ndex", s:"wip", kpi:"1 charte appliquée par script · tokens + gabarits · consignes IA", ai:[3,"Tokens, composants et consignes packagés pour que le client génère ses pages et documents avec l'IA en restant dans sa charte ; script qui applique la charte à tout PDF.",["claude","figma","python"]], dom:["design","ia","form"],
   ctx:"Un client qui adopte l'IA produit vite des pages et des documents hors charte. L'idée : lui donner un cadre (thème, composants, consignes) pour qu'il crée avec l'IA de son côté, proprement.",
   steps:[["Cartographier","Relevé de la charte : couleurs, typographies, logos et leurs variantes, règles d'usage."],["Concevoir","Tokens et composants réutilisables, gabarits de page et de document."],["Construire","Script qui applique la charte à n'importe quel livrable PDF ; consignes IA qui imposent le thème."],["Transmettre","Guide court pour que le client génère lui-même, dans le cadre."]],
@@ -2320,7 +2328,7 @@ $("#proofs").innerHTML=`
 (function(){
   const y0=2021,y1=2027.4,W=1000,L=20,R=20,pw=W-L-R,x=y=>L+(y-y0)/(y1-y0)*pw;
   const rows=[["EPHEC, bachelier e-Business",2021.7,2024.5,"var(--green-t)","var(--ink)"],["AGIDRIVE, business developer",2022.7,2023.5,"var(--honey-t)","var(--ink)"],["EMASPHERE, jobs étudiants et stage",2023.6,2025.6,"var(--honey)","#fff"],["EMASPHERE, Growth & CRM Marketer",2025.6,2026.75,"var(--green)","#fff"],["Certificat Data & AI Governance",2026.1,2026.7,"var(--ink)","#fff"]];
-  const MS=[[2024.2,"Google Cloud Innovator","gov"],[2024.4,"Stage digital marketing","gtm"],[2026.04,"Promotion : medior, référent HubSpot","data"],[2024.45,"Kaliflow (TFE)","design"],[2025.2,"Imakō","design"],[2025.5,"FlowCopy","ia"],[2025.78,"Pipeline lead gen","gtm"],[2026.08,"Copilote IA","ia"],[2026.28,"Tickets nominatifs","proc"],[2026.45,"Site emasphere.com","design"],[2026.58,"Serveur MCP · audit Charleroi","ia"],[2026.7,"Cartesa · Or Cash · 1ndex · formation IA","design"]];
+  const MS=[[2024.2,"Google Cloud Innovator","gov"],[2024.35,"Stage digital marketing","gtm"],[2024.45,"Kaliflow, TFE de fin de bachelier","design"],[2025.6,"Pipeline de génération de leads","gtm"],[2026.04,"Promotion : medior, référent HubSpot","data"],[2026.3,"Copilote IA de qualification","ia"],[2026.56,"Diagnostic managérial Cartesa","design"],[2026.62,"Formation IA · serveur MCP","ia"],[2026.66,"Cartesa en ligne · audit Charleroi","gov"],[2026.69,"Or Cash : site et Google Ads","gtm"],[2026.71,"1ndex : rentrée de 84 étudiants","design"],[2026.74,"Site emasphere.com en 3 langues","design"]];
   const MC={ia:"var(--blue)",gtm:"var(--honey)",data:"var(--green)",proc:"var(--peach)",gov:"var(--tealc)",design:"var(--violet)",form:"var(--gold)"};
   const rh=44,H=rows.length*rh+40+40;
   $("#tchart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Frise 2021 à 2026">
