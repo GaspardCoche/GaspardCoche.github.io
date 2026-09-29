@@ -1800,6 +1800,8 @@ section.dark .rings circle.core{fill:url(#rgCore)}
 .hero3d.fixedmode{height:480vh}
 
 /* v45 : finitions */
+.panel3d.s2.fin .t2 .sub{display:none}
+.panel3d.s2.fin .t2 .cap{margin-top:0}
 .hnav{display:none!important}
 .hmed2 span{font-size:12.5px}
 .panel3d .t{animation:tin .9s cubic-bezier(.2,.7,.2,1) both}
@@ -3116,7 +3118,7 @@ renderMosaic(); renderOrbit(); renderHeroOrbit();
     sats.forEach((s,i)=>{const on=i===hi||flying===i;s.lb.classList.toggle("on",on);if(s.g.scale.x>0.7){const target=on?1.4:1.2;s.g.scale.setScalar(s.g.scale.x+(target-s.g.scale.x)*0.12);}});plb.classList.toggle("on",hi===8||flying===8);
     cv.style.cursor=best>=0?"pointer":(drag?"grabbing":"grab");
     /* états du panneau */
-    const stage=(p<0.14?0:(p<0.46?1:(p<0.72?2:(p<0.9?3:2))));const cls="panel3d s"+stage;if(panel.className!==cls)panel.className=cls;if(el>0.5)typeBlock("t0",48);if(stage>=1)typeBlock("t1",36);if(stage>=2)typeBlock("t2",18);if(stage>=3)typeBlock("t3",28);
+    const stage=(p<0.14?0:(p<0.46?1:(p<0.72?2:(p<0.9?3:2))));const cls="panel3d s"+stage+((stage===2&&(p>=0.9||explore))?" fin":"");if(panel.className!==cls)panel.className=cls;if(el>0.5)typeBlock("t0",48);if(stage>=1)typeBlock("t1",36);if(stage>=2)typeBlock("t2",18);if(stage>=3)typeBlock("t3",28);
     if(stage===2){const want=hi>=0&&hi<8?hi:(near>=0?near:capI);if(want!==capStable){capStable=want;capSince=t;}if(want>=0&&(best>=0||t-capSince>700))setCap(want);}else if(capI!==-1)setCap(-1);
     if(hi!==cur){cur=hi;}
     if(effect)effect.render(scene,cam);else renderer.render(scene,cam);if(cssR)cssR.render(scene,cam);}
